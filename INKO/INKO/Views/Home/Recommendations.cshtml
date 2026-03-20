@@ -1,0 +1,40 @@
+﻿@model IEnumerable<INKO.Models.Product> // Model za proizvode
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>Najnoviji proizvodi</h1>
+
+<div class="products">
+    @foreach (var product in Model)
+    {
+        <div class="product">
+            <h2>@product.Name</h2>
+            <img src="@product.ImageFileName" alt="@product.Name" />
+            <p>Cena: @product.Price.ToString("C")</p>
+            <a href="/Products/Details/@product.Id">Detalji</a>
+        </div>
+    }
+</div>
+
+<h2>Preporuke za vas</h2>
+
+@if (ViewBag.Recommendations != null && ViewBag.Recommendations.Count > 0)
+{
+    <div class="recommendations">
+        @foreach (var recommendation in ViewBag.Recommendations)
+        {
+            <div class="recommendation">
+                <h3>@recommendation.Name</h3>
+                <img src="@recommendation.ImageUrl" alt="@recommendation.Name" />
+                <p>Cena: @recommendation.Price.ToString("C")</p>
+                <a href="/Products/Details/@recommendation.ProductId">Detalji</a>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>Nema dostupnih preporuka za vas.</p>
+}
